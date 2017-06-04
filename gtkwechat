@@ -1,0 +1,51 @@
+#! /usr/bin/gjs
+
+const Gtk = imports.gi.Gtk;
+const Lang = imports.lang;
+
+const GLib = imports.gi.GLib;
+const Webkit = imports.gi.WebKit2;
+
+const Wechat = new Lang.Class({
+  Name: 'Wechat',
+  _init: function () {
+    this.application = new Gtk.Application ();
+
+    this.application.connect('activate', Lang.bind(this, this._onActivate));
+    this.application.connect('startup', Lang.bind(this, this._onStartup));
+  },
+  
+ _onActivate: function() {
+    this._window.present();
+ } ,
+
+ _onStartup: function() {
+    this._buildUI();
+ },
+
+ _buildUI: function() {
+    this._window = new Gtk.ApplicationWindow({
+      application: this.application,
+      title: "微信",
+      default_height: 800 * 1.25,
+      default_width: 800 * 1.25,
+      window_position: Gtk.WindowPosition.CENTER
+    });
+
+    this._webView = new Webkit.WebView();
+
+    this._webView.load_uri ("https://wx.qq.com", null) ;
+
+    this._webView.connect('permission-request', function (webView, request) {
+      return true;
+    });
+    
+    // Put the webview into window
+    this._window.add (this._webView);
+
+    this._window.show_all();
+ },
+});
+
+let app = new Wechat();
+app.application.run (ARGV);

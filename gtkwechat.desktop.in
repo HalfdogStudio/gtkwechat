@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=GtkWechat
+Comment=Web微信GTK桌面版
+Exec=@prefix@/bin/gtkwechat
+Icon=@prefix@/share/applications/wechat.svg
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Network;
