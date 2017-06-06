@@ -37,6 +37,7 @@ const Wechat = new Lang.Class({
     this._webView.load_uri ("https://wx.qq.com", null) ;
 
     this._webView.connect('permission-request', function (webView, request) {
+      request.allow();
       return true;
     });
     
